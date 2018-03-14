@@ -1,10 +1,14 @@
 //----------------------------------------------------------------------------
-// Anti-Grain Geometry - Version 2.4 
+//
+// THIS FILE MODIFIED FOR IPLUG2
+//
+//----------------------------------------------------------------------------
+// Anti-Grain Geometry - Version 2.4
 // Copyright (C) 2002-2005 Maxim Shemanarev (McSeem)
 // Copyright (C) 2002 Hansruedi Baer (MacOS support)
 //
-// Permission to copy, use, modify, sell and distribute this software 
-// is granted provided this copyright notice appears in all copies. 
+// Permission to copy, use, modify, sell and distribute this software
+// is granted provided this copyright notice appears in all copies.
 // This software is provided "as is" without express or implied
 // warranty, and with no claim as to its suitability for any purpose.
 //
@@ -12,7 +16,7 @@
 // Contact: mcseem@antigrain.com
 //          mcseemagg@yahoo.com
 //          http://www.antigrain.com
-//			baer@karto.baug.eth.ch
+//          baer@karto.baug.eth.ch
 //----------------------------------------------------------------------------
 //
 // class pixel_map
@@ -21,66 +25,52 @@
 #ifndef AGG_MAC_PMAP_INCLUDED
 #define AGG_MAC_PMAP_INCLUDED
 
-
 #include <stdio.h>
-#include <Carbon.h>
-
+#include <ApplicationServices/ApplicationServices.h>
+#include "agg_pmap.h"
 
 namespace agg
 {
-    enum org_e
-    {
-        org_mono8   = 8,
-        org_color16 = 16,
-        org_color24 = 24,
-        org_color32 = 32
-    };
+  class pixel_map_mac : public pixel_map
+  {
+  public:
 
-    class pixel_map
-    {
-    public:
-        ~pixel_map();
-        pixel_map();
+    pixel_map_mac();
+    virtual ~pixel_map_mac();
 
-    public:
-        void        destroy();
-        void        create(unsigned width, 
-                           unsigned height, 
-                           org_e    org,
-                           unsigned clear_val=255);
+    virtual void destroy();
+    virtual void create(unsigned width, unsigned height, unsigned clear_val=255);
 
-        void        clear(unsigned clear_val=255);
-        bool        load_from_qt(const char* filename);
-        bool        save_as_qt(const char* filename) const;
+    virtual void clear(unsigned clear_val=255);
 
-        void        draw(WindowRef window, 
-                         const Rect* device_rect=0, 
-                         const Rect* bmp_rect=0) const;
-        void        draw(WindowRef window, int x, int y, double scale=1.0) const;
-        void        blend(WindowRef window, 
-                          const Rect* device_rect=0, 
-                          const Rect* bmp_rect=0) const;
-        void        blend(WindowRef window, int x, int y, double scale=1.0) const;
+    virtual unsigned char* buf();
 
-        unsigned char* buf();
-        unsigned       width() const;
-        unsigned       height() const;
-        int            row_bytes() const;
-        unsigned       bpp() const { return m_bpp; }
+    virtual unsigned width() const;
+    virtual unsigned height() const;
 
-        //Auxiliary static functions
-        static unsigned calc_row_len(unsigned width, unsigned bits_per_pixel);
-    private:
-        pixel_map(const pixel_map&);
-        const pixel_map& operator = (const pixel_map&);
+    virtual int row_bytes() const;
+    virtual unsigned bpp() const { return m_bpp; }
 
-    private:
-        GWorldPtr      m_pmap;
-        unsigned char* m_buf;
-        unsigned       m_bpp;
-        unsigned       m_img_size;
-    };
+    void draw(CGContextRef ctx, double scale);
+    bool load_img(const char* filename, format_e format);
 
+    //auxiliary static functions
+    static unsigned calc_row_len(unsigned width, unsigned bits_per_pixel);
+
+  private:
+
+    bool save_as_file(const char *filename) const;
+
+    pixel_map_mac(const pixel_map_mac&);
+    const pixel_map_mac& operator = (const pixel_map_mac&);
+
+    CGContextRef m_ctx;
+    CGImageRef m_img;
+    unsigned char* m_buf;
+    unsigned m_bpp;
+    unsigned m_img_size;
+    unsigned m_row_bytes;
+  };
 }
 
 
