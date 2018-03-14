@@ -51,7 +51,7 @@
 
 #ifdef OS_MAC
 #include "agg_mac_pmap.h"
-#include "agg_mac_font.h"
+//#include "agg_mac_font.h"
 #pragma clang diagnostic pop
 #endif
 

@@ -80,10 +80,11 @@ NSVG_PATH = $(IGRAPHICS_DEPS_PATH)/NanoSVG/src
 NVG_PATH = $(IGRAPHICS_DEPS_PATH)/NanoVG/src
 NVGMTL_PATH = $(IGRAPHICS_DEPS_PATH)/MetalNanoVG/src
 AGG_PATH = $(IGRAPHICS_DEPS_PATH)/AGG
+AGG_PATHS = $(AGG_PATH)/include $(AGG_PATH)/include/util $(AGG_PATH)/include/platform/mac $(AGG_PATH)/src $(AGG_PATH)/src/platform/mac $(AGG_PATH)/font_freetype
 FT_PATH = $(STATICLIBS_INC_PATH)/freetype2
 
 // you can optionally include this build setting, by adding it to EXTRA_INC_PATHS in MyProject.xcconfig in order to get all varieties of IGraphics support
-IGRAPHICS_INC_PATHS = $(IGRAPHICS_PATH) $(ICONTROLS_PATH) $(LICE_PATH) $(NSVG_PATH) $(NVG_PATH) $(NVGMTL_PATH) $(AGG_PATH) $(STATICLIBS_INC_PATH) $(FT_PATH)
+IGRAPHICS_INC_PATHS = $(IGRAPHICS_PATH) $(ICONTROLS_PATH) $(LICE_PATH) $(NSVG_PATH) $(NVG_PATH) $(NVGMTL_PATH) $(AGG_PATHS) $(STATICLIBS_INC_PATH) $(FT_PATH)
 
 // *****  LINKER/LIBRARY INCLUDE PATHS AND LINKER FLAGS
 STATICLIBS_LIB_PATH = $(STATICLIBS_PATH)/lib

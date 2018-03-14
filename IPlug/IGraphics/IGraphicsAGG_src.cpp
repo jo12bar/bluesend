@@ -12,8 +12,6 @@
 #include "agg_line_profile_aa.cpp"
 #include "agg_rounded_rect.cpp"
 #include "agg_sqrt_tables.cpp"
-//#include "agg_svg_parser_utils.cpp"
-//#include "agg_svg_path_tokenizer.cpp"
 #include "agg_trans_affine.cpp"
 #include "agg_trans_double_path.cpp"
 #include "agg_trans_single_path.cpp"
