@@ -25,13 +25,13 @@ public:
   
   void generate(typename SpanGeneratorType::color_type* span, int x, int y, unsigned len)
   {
-    SpanGeneratorType::generate(span, x, y, len);
-    
-    if (alpha != 255)
-    {
-      for (unsigned i = 0; i < len; i++, span++)
-        span->a = (span->a * alpha + SpanGeneratorType::base_mask) >> SpanGeneratorType::base_shift;
-    }
+//    SpanGeneratorType::generate(span, x, y, len);
+//    
+//    if (alpha != 255)
+//    {
+//      for (unsigned i = 0; i < len; i++, span++)
+//        span->a = (span->a * alpha + SpanGeneratorType::base_mask) >> SpanGeneratorType::base_shift;
+//    }
   }
   
 private:

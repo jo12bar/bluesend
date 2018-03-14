@@ -37,20 +37,20 @@ inline agg::cover_type AGGCover(const IBlend* pBlend = nullptr)
 template <typename FuncType, typename ColorArrayType>
 void GradientRasterize(IGraphicsAGG::Rasterizer& rasterizer, const FuncType& gradientFunc, agg::trans_affine& xform, ColorArrayType& colorArray, agg::comp_op_e op)
 {
-  IGraphicsAGG::SpanAllocatorType spanAllocator;
-  IGraphicsAGG::InterpolatorType spanInterpolator(xform);
-  
-  // Gradient types
-  
-  typedef agg::span_gradient<agg::rgba8, IGraphicsAGG::InterpolatorType, FuncType, ColorArrayType> SpanGradientType;
-  typedef agg::renderer_scanline_aa<IGraphicsAGG::RenbaseType, IGraphicsAGG::SpanAllocatorType, SpanGradientType> RendererGradientType;
-  
-  // Gradient objects
-  
-  SpanGradientType spanGradient(spanInterpolator, gradientFunc, colorArray, 0, 512);
-  RendererGradientType renderer(rasterizer.GetBase(), spanAllocator, spanGradient);
-  
-  rasterizer.Rasterize(renderer, op);
+//  IGraphicsAGG::SpanAllocatorType spanAllocator;
+//  IGraphicsAGG::InterpolatorType spanInterpolator(xform);
+//  
+//  // Gradient types
+//  
+//  typedef agg::span_gradient<agg::rgba8, IGraphicsAGG::InterpolatorType, FuncType, ColorArrayType> SpanGradientType;
+//  typedef agg::renderer_scanline_aa<IGraphicsAGG::RenbaseType, IGraphicsAGG::SpanAllocatorType, SpanGradientType> RendererGradientType;
+//  
+//  // Gradient objects
+//  
+//  SpanGradientType spanGradient(spanInterpolator, gradientFunc, colorArray, 0, 512);
+//  RendererGradientType renderer(rasterizer.GetBase(), spanAllocator, spanGradient);
+//  
+//  rasterizer.Rasterize(renderer, op);
 }
 
 template <typename FuncType, typename ColorArrayType>
