@@ -3,7 +3,7 @@
 #include "IPlugParameter.h"
 #include "IControls.h"
 #include "IVDropDownListControl.h"
-#include "IPlugEasing.h"
+#include "IGraphicsTest_controls.h"
 
 #define MAC_TITLEBAR_BODGE 22
 
@@ -30,14 +30,14 @@ void IGraphicsTest::init()
   const int nColumns = 10;
   IRECT bounds = pGraphics->GetBounds();
   
-
-  for (int i = 0; i < 50; i++)
-  {
-    IRECT cellBounds = bounds.GetGridCell(i, nRows, nColumns).GetPadded(-5.);
-    IRECT endRect = bounds.GetGridCell(i + 50, nRows, nColumns).GetPadded(-5.);;
-    
-    IVSwitchControl* pSw = new IVSwitchControl(*this, cellBounds);
-    pGraphics->AttachControl(pSw);
+  pGraphics->AttachControl(new IVMappingControl(*this, bounds.GetPadded(-40.), 16));
+//  for (int i = 0; i < 50; i++)
+//  {
+//    IRECT cellBounds = bounds.GetGridCell(i, nRows, nColumns).GetPadded(-5.);
+//    IRECT endRect = bounds.GetGridCell(i + 50, nRows, nColumns).GetPadded(-5.);;
+//
+//    IVSwitchControl* pSw = new IVSwitchControl(*this, cellBounds);
+//    pGraphics->AttachControl(pSw);
 
 //    IAnimationFunction animationFunction = [pGraphics, cellBounds, endRect](IControl* pCaller)
 //    {
@@ -62,7 +62,7 @@ void IGraphicsTest::init()
 //    };
 //    
 //    pSw->SetActionFunction(actionFunction);
-  }
+//  }
 
 #endif
 }

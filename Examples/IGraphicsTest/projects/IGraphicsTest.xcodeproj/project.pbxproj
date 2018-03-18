@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4F076C43205DC4E000750CED /* IGraphicsTest_controls.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F076C42205DC4E000750CED /* IGraphicsTest_controls.h */; };
 		4F1B4AE42014D33600BC64D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1B4AE32014D33600BC64D4 /* MainMenu.xib */; };
 		4F3ECAAF2038561700630EC5 /* IPlugPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F3ECAAE2038561700630EC5 /* IPlugPlatform.h */; };
 		4F3ECAB42038661F00630EC5 /* IGraphicsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3ECAB32038641000630EC5 /* IGraphicsTest.cpp */; };
@@ -79,6 +80,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F076C42205DC4E000750CED /* IGraphicsTest_controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IGraphicsTest_controls.h; path = ../IGraphicsTest_controls.h; sourceTree = "<group>"; };
 		4F1B4AE32014D33600BC64D4 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = ../resources/MainMenu.xib; sourceTree = "<group>"; };
 		4F1F1BE9135B1F60003A5BB2 /* wdlendian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wdlendian.h; path = ../../../WDL/wdlendian.h; sourceTree = SOURCE_ROOT; };
 		4F23BA1413B647E50097A67E /* IGraphicsTest-macOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "IGraphicsTest-macOS-Info.plist"; path = "../resources/IGraphicsTest-macOS-Info.plist"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			children = (
 				4F6F5365202FDB9900FEE3A7 /* IGraphicsTest.h */,
 				4F3ECAB32038641000630EC5 /* IGraphicsTest.cpp */,
+				4F076C42205DC4E000750CED /* IGraphicsTest_controls.h */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C1671FE841209C02AAC07 /* Frameworks */,
@@ -382,6 +385,7 @@
 				4F78DA9213B640050032E0F3 /* swell-types.h in Headers */,
 				4FF142BE1FD4A61E00A65575 /* IGraphics.h in Headers */,
 				4FF142A71FD4A61E00A65575 /* IGraphicsConstants.h in Headers */,
+				4F076C43205DC4E000750CED /* IGraphicsTest_controls.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
