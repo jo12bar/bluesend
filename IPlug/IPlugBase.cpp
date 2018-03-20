@@ -35,7 +35,7 @@ IPlugBase::~IPlugBase()
   mParams.Empty(true);
 }
 
-void IPlugBase::OnParamChange(int paramIdx, EParamSource source)
+void IPlugBase::OnParamChange(int paramIdx, EParamSource source, int offset)
 {
   Trace(TRACELOC, "idx:%i src:%s\n", paramIdx, ParamSourceStrs[source]);
   OnParamChange(paramIdx);
