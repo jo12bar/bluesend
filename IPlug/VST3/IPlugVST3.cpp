@@ -51,52 +51,52 @@ public:
   {
     UString(info.title, str16BufferSize(String128)).assign(pParam->GetNameForHost());
     UString(info.units, str16BufferSize(String128)).assign(pParam->GetLabelForHost());
-    
+
     precision = pParam->GetDisplayPrecision();
-    
+
     if (pParam->Type() != IParam::kTypeDouble)
       info.stepCount = pParam->GetRange();
     else
       info.stepCount = 0; // continuous
-    
+
     int32 flags = 0;
 
     if (pParam->GetCanAutomate()) flags |= ParameterInfo::kCanAutomate;
     if (pParam->Type() == IParam::kTypeEnum) flags |= ParameterInfo::kIsList;
-    
+
     info.defaultNormalizedValue = valueNormalized = pParam->ToNormalized(pParam->GetDefault());
     info.flags = flags;
     info.id = tag;
     info.unitId = unitID;
   }
-  
+
   virtual void toString(ParamValue valueNormalized, String128 string) const override
   {
     WDL_String display;
     mIPlugParam->GetDisplayForHost(valueNormalized, true, display);
     Steinberg::UString(string, 128).fromAscii(display.Get());
   }
-  
+
   virtual bool fromString(const TChar* string, ParamValue& valueNormalized) const override
   {
     String str((TChar*)string);
     valueNormalized = mIPlugParam->ToNormalized(atof(str.text8()));
-    
+
     return true;
   }
-  
+
   virtual Steinberg::Vst::ParamValue toPlain(ParamValue valueNormalized) const override
   {
     return mIPlugParam->FromNormalized(valueNormalized);
   }
-  
+
   virtual Steinberg::Vst::ParamValue toNormalized(ParamValue plainValue) const override
   {
     return mIPlugParam->ToNormalized(valueNormalized);
   }
-  
+
   OBJ_METHODS(IPlugVST3Parameter, Parameter)
-  
+
 protected:
   IParam* mIPlugParam;
 };
@@ -112,15 +112,15 @@ IPlugVST3::IPlugVST3(IPlugInstanceInfo instanceInfo, IPlugConfig c)
 
   _SetChannelConnections(ERoute::kInput, 0, MaxNChannels(ERoute::kInput), true);
   _SetChannelConnections(ERoute::kOutput, 0, MaxNChannels(ERoute::kOutput), true);
-  
-  if (MaxNChannels(ERoute::kInput)) 
+
+  if (MaxNChannels(ERoute::kInput))
   {
     mLatencyDelay = new NChanDelayLine<PLUG_SAMPLE_DST>(MaxNChannels(ERoute::kInput), MaxNChannels(ERoute::kOutput));
     mLatencyDelay->SetDelayTime(GetLatency());
   }
 
   // Make sure the process context is predictably initialised in case it is used before process is called
- 
+
   memset(&mProcessContext, 0, sizeof(ProcessContext));
 }
 
@@ -150,23 +150,23 @@ tresult PLUGIN_API IPlugVST3::initialize(FUnknown* context)
 //    for(auto configIdx = 0; configIdx < NIOConfigs(); configIdx++)
 //    {
       int configIdx = NIOConfigs()-1;
-    
+
       IOConfig* pConfig = GetIOConfig(configIdx);
-    
+
       assert(pConfig);
       for(auto busIdx = 0; busIdx < pConfig->NBuses(ERoute::kInput); busIdx++)
       {
         uint64_t busType = GetAPIBusTypeForChannelIOConfig(configIdx, ERoute::kInput, busIdx, pConfig);
-        
+
         int flags = 0; //busIdx == 0 ? flags = Steinberg::Vst::BusInfo::BusFlags::kDefaultActive : flags = 0;
         Steinberg::UString(tmpStringBuf, 128).fromAscii(pConfig->GetBusInfo(ERoute::kInput, busIdx)->mLabel.Get(), 128);
         addAudioInput(tmpStringBuf, busType, (BusTypes) busIdx > 0, flags);
       }
-      
+
       for(auto busIdx = 0; busIdx < pConfig->NBuses(ERoute::kOutput); busIdx++)
       {
         uint64_t busType = GetAPIBusTypeForChannelIOConfig(configIdx, ERoute::kOutput, busIdx, pConfig);
-        
+
         int flags = 0; //busIdx == 0 ? flags = Steinberg::Vst::BusInfo::BusFlags::kDefaultActive : flags = 0;
         Steinberg::UString(tmpStringBuf, 128).fromAscii(pConfig->GetBusInfo(ERoute::kOutput, busIdx)->mLabel.Get(), 128);
         addAudioOutput(tmpStringBuf, busType, (BusTypes) busIdx > 0, flags);
@@ -177,7 +177,7 @@ tresult PLUGIN_API IPlugVST3::initialize(FUnknown* context)
     if(DoesMIDI())
     {
       addEventInput(STR16("MIDI Input"), 1);
-      //addEventOutput(STR16("MIDI Output"), 1);
+      addEventOutput(STR16("MIDI Output"), 1);
     }
 
     if (NPresets())
@@ -206,11 +206,11 @@ tresult PLUGIN_API IPlugVST3::initialize(FUnknown* context)
       IParam *p = GetParam(i);
 
       UnitID unitID = kRootUnitId;
-      
+
       const char* paramGroupName = p->GetParamGroupForHost();
 
       if (CSTR_NOT_EMPTY(paramGroupName))
-      {        
+      {
         for(int j = 0; j < NParamGroups(); j++)
         {
           if(strcmp(paramGroupName, GetParamGroupName(j)) == 0)
@@ -218,13 +218,13 @@ tresult PLUGIN_API IPlugVST3::initialize(FUnknown* context)
             unitID = j+1;
           }
         }
-        
+
         if (unitID == kRootUnitId) // new unit, nothing found, so add it
         {
           unitID = AddParamGroup(paramGroupName);
         }
       }
-      
+
       Parameter* pVST3Parameter = new IPlugVST3Parameter(p, i, unitID);
       parameters.addParameter(pVST3Parameter);
     }
@@ -232,7 +232,7 @@ tresult PLUGIN_API IPlugVST3::initialize(FUnknown* context)
 
   OnHostIdentified();
   RestorePreset(0);
-  
+
   return result;
 }
 
@@ -275,7 +275,7 @@ tresult PLUGIN_API IPlugVST3::setBusArrangements(SpeakerArrangement* pInputBusAr
 //
 //    }
 //  }
-//  
+//
 //  for(auto busIdx = 0; busIdx < numOuts; busIdx++)
 //  {
 //    AudioBus* pBus = FCast<AudioBus>(audioOutputs.at(busIdx));
@@ -289,7 +289,7 @@ tresult PLUGIN_API IPlugVST3::setBusArrangements(SpeakerArrangement* pInputBusAr
 //      addAudioOutput(USTRING("Output"), (SpeakerArrangement) GetAPIBusTypeForChannelIOConfig(-1, -1, NOutputsRequired), (BusTypes) busIdx > 0, flags);
 //    }
 //  }
-  
+
   return kResultTrue;
 }
 
@@ -326,7 +326,7 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
     memcpy(&mProcessContext, data.processContext, sizeof(ProcessContext));
 
   PreProcess();
-  
+
   //process parameters
   IParameterChanges* paramChanges = data.inputParameterChanges;
   if (paramChanges)
@@ -354,7 +354,7 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
             case kBypassParam:
             {
              const bool bypassed = (value > 0.5);
-            
+
               if (bypassed != GetBypassed())
                 _SetBypassed(bypassed);
 
@@ -409,6 +409,20 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
             {
               msg.MakeNoteOffMsg(event.noteOff.pitch, event.sampleOffset, event.noteOff.channel);
               ProcessMidiMsg(msg);
+              break;
+            }
+
+            case Event::kPolyPressureEvent:
+            {
+              msg.MakePolyATMsg(event.polyPressure.pitch, event.polyPressure.pressure * 127., event.sampleOffset, event.polyPressure.channel);
+              ProcessMidiMsg(&msg);
+              break;
+            }
+
+            case Event::kDataEvent:
+            {
+              ISysEx syx = ISysEx(event.sampleOffset, event.data.bytes, event.data.size);
+              ProcessSysEx(&syx);
               break;
             }
           }
@@ -466,6 +480,86 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
       _PassThroughBuffers(0.0f, data.numSamples);
     else
       _ProcessBuffers(0.0f, data.numSamples); // process buffers single precision
+
+    // Midi Out
+    if (DoesMIDIOut())
+    {
+      IEventList* outputEvents = data.outputEvents;
+
+      //MIDI
+      if (!mMidiMsgsFromProcessor.empty() && outputEvents)
+      {
+        Event toAdd = {0};
+
+        for(auto i = 0; i < data.numSamples; i++)
+        {
+          while (!mMidiOutQueue.Empty())
+          {
+            IMidiMsg& msg = mMidiQueue.Peek();
+
+            if (msg.mOffset > s) break;
+
+            switch (msg.StatusMsg())
+            {
+              case IMidiMsg::kNoteOn:
+                toAdd.type = Event::kNoteOnEvent;
+                toAdd.noteOn.channel = msg.Channel();
+                toAdd.noteOn.pitch = msg.NoteNumber();
+                toAdd.noteOn.tuning = 0.;
+                toAdd.noteOn.velocity = (float) msg.Velocity() * (1.f / 127.f);
+                toAdd.noteOn.length = -1;
+                toAdd.noteOn.noteId = -1; // TODO ?
+                toAdd.sampleOffset = msg.mOffset;
+                outputEvents->addEvent(toAdd);
+                break;
+              case IMidiMsg::kNoteOff:
+                toAdd.type = Event::kNoteOffEvent;
+                toAdd.noteOff.channel = msg.Channel();
+                toAdd.noteOff.pitch = msg.NoteNumber();
+                toAdd.noteOff.velocity = (float) msg.Velocity() * (1.f / 127.f);
+                toAdd.noteOff.noteId = -1; // TODO ?
+                toAdd.sampleOffset = msg.mOffset;
+                outputEvents->addEvent(toAdd);
+                break;
+              case IMidiMsg::kPolyAftertouch:
+                toAdd.type = Event::kPolyPressureEvent;
+                toAdd.polyPressure.channel = msg.Channel();
+                toAdd.polyPressure.pitch = msg.NoteNumber();
+                toAdd.polyPressure.pressure = (float) msg.PolyAfterTouch() * (1.f / 127.f);
+                toAdd.polyPressure.noteId = -1; // TODO ?
+                toAdd.sampleOffset = msg.mOffset;
+                outputEvents->addEvent(toAdd);
+                break;
+              case IMidiMsg::kControlChange:
+              case IMidiMsg::kProgramChange:
+              case IMidiMsg::kChannelAftertouch:
+              case IMidiMsg::kPitchWheel:
+              default:
+                break;
+            }
+
+            mMidiOutQueue.Remove();
+          }
+        }
+      }
+
+      //SysEx
+//       if (!mSysExMsgsFromController.empty() && outputEvents)
+//       {
+//         Event toAdd = {0};
+//
+//         //TODO: improve this to handle lots of SYSEX (mTempSysExChunk)
+//         while (mSysExMsgsFromController.pop(mTempSysExChunk))
+//         {
+//           toAdd.type = Event::kDataEvent;
+//           toAdd.sampleOffset = mTempSysExChunk.mOffset;
+//           toAdd.data.type = DataEvent::kMidiSysEx;
+//           toAdd.data.size = mTempSysExChunk.mSize;
+//           toAdd.data.bytes = (uint8*)mTempSysExChunk.mData; // need the data to stick around, until output event is sent, but don't want to allocate on heap in high priority thread
+//           outputEvents->addEvent(toAdd);
+//         }
+//       }
+    }
   }
 
 #pragma mark process double precision
@@ -584,16 +678,16 @@ tresult PLUGIN_API IPlugVST3::setEditorState(IBStream* state)
   {
     state->read(chunk.GetBytes(), chunk.Size());
     UnserializeState(chunk, 0);
-    
+
     int32 savedBypass = 0;
-    
+
     if (state->read (&savedBypass, sizeof (int32)) != kResultOk)
     {
       return kResultFalse;
     }
-    
+
     _SetBypassed((bool) savedBypass);
-    
+
     OnRestoreState();
     return kResultOk;
   }
@@ -606,11 +700,11 @@ tresult PLUGIN_API IPlugVST3::getEditorState(IBStream* state)
   TRACE;
 
   IByteChunk chunk;
-  
+
 // TODO: IPlugVer should be in chunk!
 //  int pos;
 //  GetIPlugVerFromChunk(chunk, pos)
-  
+
   if (SerializeState(chunk))
   {
     state->write(chunk.GetBytes(), chunk.Size());
@@ -618,8 +712,8 @@ tresult PLUGIN_API IPlugVST3::getEditorState(IBStream* state)
   else
   {
     return kResultFalse;
-  }  
-  
+  }
+
   int32 toSaveBypass = GetBypassed() ? 1 : 0;
   state->write(&toSaveBypass, sizeof (int32));
 
@@ -640,7 +734,7 @@ ParamValue PLUGIN_API IPlugVST3::plainParamToNormalized(ParamID tag, ParamValue 
 ParamValue PLUGIN_API IPlugVST3::getParamNormalized(ParamID tag)
 {
   ParamValue returnVal = 0.;
-  if (tag == kBypassParam) 
+  if (tag == kBypassParam)
     returnVal = (ParamValue) GetBypassed();
 //   else if (tag == kPresetParam)
 //   {
@@ -654,14 +748,14 @@ ParamValue PLUGIN_API IPlugVST3::getParamNormalized(ParamID tag)
       returnVal = pParam->GetNormalized();
     LEAVE_PARAMS_MUTEX;
   }
-  
+
   return returnVal;
 }
 
 tresult PLUGIN_API IPlugVST3::setParamNormalized(ParamID tag, ParamValue value)
 {
   tresult result = kResultFalse;
-  
+
   ENTER_PARAMS_MUTEX;
   IParam* pParam = GetParam(tag);
   if (pParam)
@@ -743,15 +837,15 @@ AudioBus* IPlugVST3::getAudioOutput (int32 index)
 int32 PLUGIN_API IPlugVST3::getUnitCount()
 {
   TRACE;
-  
+
   return NParamGroups() + 1;
 }
 
 tresult PLUGIN_API IPlugVST3::getUnitInfo(int32 unitIndex, UnitInfo& info)
 {
   TRACE;
-  
-  if (unitIndex == 0) 
+
+  if (unitIndex == 0)
   {
     info.id = kRootUnitId;
     info.parentUnitId = kNoParentUnitId;
@@ -769,10 +863,10 @@ tresult PLUGIN_API IPlugVST3::getUnitInfo(int32 unitIndex, UnitInfo& info)
     info.id = unitIndex;
     info.parentUnitId = kRootUnitId;
     info.programListId = kNoProgramListId;
-    
+
     UString name(info.name, 128);
     name.fromAscii(GetParamGroupName(unitIndex-1));
-    
+
     return kResultTrue;
   }
 
@@ -844,14 +938,14 @@ void IPlugVST3::SetLatency(int latency)
   IPlugProcessor::SetLatency(latency);
 
   FUnknownPtr<IComponentHandler>handler(componentHandler);
-  handler->restartComponent(kLatencyChanged);  
+  handler->restartComponent(kLatencyChanged);
 }
 
 #pragma mark IPlugVST3
 void IPlugVST3::PreProcess()
 {
   ITimeInfo timeInfo;
-  
+
   if(mProcessContext.state & ProcessContext::kProjectTimeMusicValid)
     timeInfo.mSamplePos = (double) mProcessContext.projectTimeSamples;
   timeInfo.mPPQPos = mProcessContext.projectTimeMusic;
