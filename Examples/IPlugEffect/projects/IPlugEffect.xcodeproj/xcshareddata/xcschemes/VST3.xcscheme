@@ -48,8 +48,8 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "com.steinberg.vst3.plugintesthost"
-         FilePath = "/Applications/VST3PluginTestHost.app">
+         BundleIdentifier = "com.steinberg.cubase9v5"
+         FilePath = "/Applications/Cubase 9.5.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference

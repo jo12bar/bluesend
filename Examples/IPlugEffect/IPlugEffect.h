@@ -25,7 +25,7 @@ public:
   IPlugEffect(IPlugInstanceInfo instanceInfo);
 //  ~IPlugEffect();
 //   void OnReset() override;
-//  void OnParamChange(int paramIdx) override;
+  void OnParamChange(int paramIdx, EParamSource source, int offset) override;
   void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
   
 //  void OnActivate(bool activate) override

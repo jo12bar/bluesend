@@ -66,3 +66,9 @@ void IPlugEffect::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
     }
   }
 }
+
+void IPlugEffect::OnParamChange(int paramIdx, EParamSource source, int offset)
+{
+  DBGMSG("ParamIdx %i, source %i, offset %i", paramIdx, source, offset);
+}
+
