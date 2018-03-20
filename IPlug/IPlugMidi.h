@@ -126,7 +126,7 @@ struct IMidiMsg
   }
   
   /** @param value range [-1, 1], converts to [0, 16384) where 8192 = no pitch change. */
-  void MakePitchWheelMsg(double value, int channel = 0)
+  void MakePitchWheelMsg(double value, int channel = 0, int offset = 0)
   {
     Clear();
     mStatus = channel | (kPitchWheel << 4);
@@ -134,15 +134,35 @@ struct IMidiMsg
     i = BOUNDED(i, 0, 16383);
     mData2 = i>>7;
     mData1 = i&0x7F;
+    mOffset = offset;
   }
   
   /** @param value range [0, 1] */
-  void MakeControlChangeMsg(EControlChangeMsg idx, double value, int channel = 0)
+  void MakeControlChangeMsg(EControlChangeMsg idx, double value, int channel = 0, int offset = 0)
   {
     Clear();
     mStatus = channel | (kControlChange << 4);
     mData1 = idx;
     mData2 = (int) (value * 127.0);
+    mOffset = offset;
+  }
+  
+  void MakeChannelATMsg(int pressure, int channel = 0, int offset = 0)
+  {
+    Clear();
+    mStatus = channel | (kChannelAftertouch << 4);
+    mData1 = pressure;
+    mData2 = 0;
+    mOffset = offset;
+  }
+  
+  void MakePolyATMsg(int noteNumber, int pressure, int channel = 0, int offset = 0)
+  {
+    Clear();
+    mStatus = channel | (kPolyAftertouch << 4);
+    mData1 = noteNumber;
+    mData2 = pressure;
+    mOffset = offset;
   }
   
   /** @return [0, 15] for midi channels 1 ... 16 */
