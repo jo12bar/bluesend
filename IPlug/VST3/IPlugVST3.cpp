@@ -4,6 +4,7 @@
 #include "pluginterfaces/base/ibstream.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 #include "pluginterfaces/vst/ivstevents.h"
+#include "pluginterfaces/vst/ivstmidicontrollers.h"
 
 #include "IPlugVST3.h"
 
@@ -361,21 +362,37 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
               break;
             }
             case kPresetParam:
-              //RestorePreset((int)round(FromNormalizedParam(value, 0, NPresets(), 1.))); // TODO
+              //TODO:?
               break;
-              //TODO: pitch bend, modwheel etc
             default:
+            {
+              if (idx >= 0 && idx < NParams())
               {
-                if (idx >= 0 && idx < NParams())
-                {
-                  ENTER_PARAMS_MUTEX;
-                  GetParam(idx)->SetNormalized((double)value);
-                  SendParameterValueToUIFromAPI(idx, (double) value, true);
-                  OnParamChange(idx, kAutomation);
-                  LEAVE_PARAMS_MUTEX;
-                }
+                ENTER_PARAMS_MUTEX;
+                GetParam(idx)->SetNormalized((double)value);
+                SendParameterValueToUIFromAPI(idx, (double) value, true);
+                OnParamChange(idx, kAutomation, offsetSamples);
+                LEAVE_PARAMS_MUTEX;
+              }
+              else if (idx >= kMIDICCParamStartIdx)
+              {
+                int index = idx - kMIDICCParamStartIdx;
+                int channel = index / kCountCtrlNumber;
+                int ctrlr = index % kCountCtrlNumber;
+                
+                IMidiMsg msg;
+                
+                if (ctrlr == kAfterTouch)
+                  msg.MakeChannelATMsg((int) (value * 127.), offsetSamples, channel);
+                else if (ctrlr == kPitchBend)
+                  msg.MakePitchWheelMsg((value * 2.)-1., channel, offsetSamples);
+                else
+                  msg.MakeControlChangeMsg((IMidiMsg::EControlChangeMsg) ctrlr, value, channel, offsetSamples);
+                
+                ProcessMidiMsg(msg);
               }
               break;
+            }
           }
 
         }
@@ -404,25 +421,22 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
               ProcessMidiMsg(msg);
               break;
             }
-
             case Event::kNoteOffEvent:
             {
               msg.MakeNoteOffMsg(event.noteOff.pitch, event.sampleOffset, event.noteOff.channel);
               ProcessMidiMsg(msg);
               break;
             }
-
             case Event::kPolyPressureEvent:
             {
               msg.MakePolyATMsg(event.polyPressure.pitch, event.polyPressure.pressure * 127., event.sampleOffset, event.polyPressure.channel);
-              ProcessMidiMsg(&msg);
+              ProcessMidiMsg(msg);
               break;
             }
-
             case Event::kDataEvent:
             {
               ISysEx syx = ISysEx(event.sampleOffset, event.data.bytes, event.data.size);
-              ProcessSysEx(&syx);
+              ProcessSysEx(syx);
               break;
             }
           }
@@ -482,20 +496,20 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
       _ProcessBuffers(0.0f, data.numSamples); // process buffers single precision
 
     // Midi Out
-    if (DoesMIDIOut())
+    if (DoesMIDI())
     {
       IEventList* outputEvents = data.outputEvents;
 
       //MIDI
-      if (!mMidiMsgsFromProcessor.empty() && outputEvents)
+      if (!mMidiOutQueue.Empty() && outputEvents)
       {
         Event toAdd = {0};
 
-        for(auto i = 0; i < data.numSamples; i++)
+        for(auto s = 0; s < data.numSamples; s++)
         {
           while (!mMidiOutQueue.Empty())
           {
-            IMidiMsg& msg = mMidiQueue.Peek();
+            IMidiMsg& msg = mMidiOutQueue.Peek();
 
             if (msg.mOffset > s) break;
 
@@ -530,6 +544,7 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
                 toAdd.sampleOffset = msg.mOffset;
                 outputEvents->addEvent(toAdd);
                 break;
+                // THESE ARE DONE VIA PARAMETERS IN VST3
               case IMidiMsg::kControlChange:
               case IMidiMsg::kProgramChange:
               case IMidiMsg::kChannelAftertouch:
