@@ -1,0 +1,17 @@
+<map id="IPlugVST3.h" name="IPlugVST3.h">
+<area shape="rect" id="node7" href="$_i_plug_base__select_8h_source.html" title="IPlugBase_select.h" alt="" coords="777,88,911,115"/>
+<area shape="rect" id="node8" href="$_i_plug_base_graphics_8h.html" title="An IPlugBase class for an IPlug plug&#45;in that uses IGraphics for it&#39;s UI. " alt="" coords="771,171,916,197"/>
+<area shape="rect" id="node32" href="$_i_plug_processor_8h.html" title="The base class for IPlug Audio Processing. " alt="" coords="1369,245,1492,272"/>
+<area shape="rect" id="node37" href="$_i_plug_presets_8h.html" title="IPlugPresets.h" alt="" coords="510,245,617,272"/>
+<area shape="rect" id="node9" href="$_i_plug_base_8h.html" title="The lowest level base class of an IPlug plug&#45;in. " alt="" coords="861,245,955,272"/>
+<area shape="rect" id="node31" href="$_i_plug_delegate_8h_source.html" title="IPlugDelegate.h" alt="" coords="723,245,837,272"/>
+<area shape="rect" id="node14" href="$_i_plug_platform_8h.html" title="Include to get consistently named preprocessor macros for different platforms and logging functionali..." alt="" coords="836,395,947,421"/>
+<area shape="rect" id="node23" href="$_i_plug_constants_8h.html" title="Constant definitions, Types, magic numbers. " alt="" coords="1027,619,1149,645"/>
+<area shape="rect" id="node24" href="$_i_plug_utilities_8h.html" title="Utility functions and macros. " alt="" coords="905,544,1012,571"/>
+<area shape="rect" id="node27" href="$_i_plug_structs_8h_source.html" title="IPlugStructs.h" alt="" coords="765,320,869,347"/>
+<area shape="rect" id="node29" href="$_i_plug_parameter_8h_source.html" title="IPlugParameter.h" alt="" coords="404,469,527,496"/>
+<area shape="rect" id="node16" href="$_i_plug_logger_8h.html" title="IPlug logging a.k.a tracing functionailty. " alt="" coords="1069,469,1171,496"/>
+<area shape="rect" id="node28" href="$_i_plug_midi_8h_source.html" title="IPlugMidi.h" alt="" coords="1195,469,1281,496"/>
+<area shape="rect" id="node33" href="$_n_chan_delay_8h_source.html" title="NChanDelay.h" alt="" coords="1638,320,1745,347"/>
+<area shape="rect" id="node34" href="$_i_plug_processor_8cpp_source.html" title="IPlugProcessor.cpp" alt="" coords="1728,469,1863,496"/>
+</map>

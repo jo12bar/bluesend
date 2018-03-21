@@ -1,0 +1,7 @@
+<map id="IVectorBase" name="IVectorBase">
+<area shape="rect" id="node2" href="$class_i_panel_control.html" title="A basic control to fill a rectangle with a color. " alt="" coords="5,80,107,107"/>
+<area shape="rect" id="node3" href="$class_i_v_keyboard_control.html" title="IVKeyboardControl" alt="" coords="131,80,263,107"/>
+<area shape="rect" id="node4" href="$class_i_v_knob_control.html" title="A vector knob control drawn using graphics primitves. " alt="" coords="288,80,395,107"/>
+<area shape="rect" id="node5" href="$class_i_v_slider_control.html" title="IVSliderControl" alt="" coords="419,80,529,107"/>
+<area shape="rect" id="node6" href="$class_i_v_switch_control.html" title="A vector switch control. " alt="" coords="555,80,671,107"/>
+</map>

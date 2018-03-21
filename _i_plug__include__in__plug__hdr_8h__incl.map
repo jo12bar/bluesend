@@ -1,0 +1,6 @@
+<map id="IPlug_include_in_plug_hdr.h" name="IPlug_include_in_plug_hdr.h">
+<area shape="rect" id="node3" href="$_i_plug_platform_8h.html" title="Include to get consistently named preprocessor macros for different platforms and logging functionali..." alt="" coords="172,96,283,123"/>
+<area shape="rect" id="node6" href="$_i_plug_logger_8h.html" title="IPlug logging a.k.a tracing functionailty. " alt="" coords="475,171,577,197"/>
+<area shape="rect" id="node14" href="$_i_plug_constants_8h.html" title="Constant definitions, Types, magic numbers. " alt="" coords="357,320,480,347"/>
+<area shape="rect" id="node15" href="$_i_plug_utilities_8h.html" title="Utility functions and macros. " alt="" coords="175,245,281,272"/>
+</map>

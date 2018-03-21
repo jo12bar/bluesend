@@ -1,0 +1,4 @@
+<map id="IPlugPresetHandler" name="IPlugPresetHandler">
+<area shape="rect" id="node2" href="$class_i_plug_v_s_t2.html" title="VST2.4 API base class for an IPlug plug&#45;in, inherits from IPlugBase or IPlugBaseGraphics. " alt="" coords="5,80,91,107"/>
+<area shape="rect" id="node3" href="$class_i_plug_v_s_t3.html" title="VST3 base class for an IPlug plug&#45;in, inherits from IPlugBase or IPlugBaseGraphics. " alt="" coords="115,80,200,107"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="IPlugVST3" name="IPlugVST3">
+<area shape="rect" id="node2" href="$class_i_plug_base_graphics.html" title="An IPlugBase class for an IPlug plug&#45;in that uses IGraphics for it&#39;s UI. " alt="" coords="153,31,309,57"/>
+<area shape="rect" id="node3" href="$class_i_plug_base.html" title="The lowest level base class of an IPlug plug&#45;in. " alt="" coords="5,5,88,32"/>
+<area shape="rect" id="node4" href="$class_i_delegate.html" title="This pure virtual interface delegates communication in both directions between the UI and the plug&#45;in..." alt="" coords="7,56,86,83"/>
+<area shape="rect" id="node5" href="$class_i_plug_processor.html" title="IPlugProcessor\&lt; PLUG\l_SAMPLE_DST \&gt;" alt="" coords="151,82,310,123"/>
+<area shape="rect" id="node6" href="$class_i_plug_preset_handler.html" title="Everything to do with saving presets. " alt="" coords="163,148,298,175"/>
+</map>

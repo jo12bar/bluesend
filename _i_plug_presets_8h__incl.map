@@ -1,0 +1,9 @@
+<map id="IPlugPresets.h" name="IPlugPresets.h">
+<area shape="rect" id="node6" href="$_i_plug_platform_8h.html" title="Include to get consistently named preprocessor macros for different platforms and logging functionali..." alt="" coords="820,155,930,181"/>
+<area shape="rect" id="node15" href="$_i_plug_constants_8h.html" title="Constant definitions, Types, magic numbers. " alt="" coords="1185,379,1308,405"/>
+<area shape="rect" id="node16" href="$_i_plug_utilities_8h.html" title="Utility functions and macros. " alt="" coords="774,304,881,331"/>
+<area shape="rect" id="node19" href="$_i_plug_structs_8h_source.html" title="IPlugStructs.h" alt="" coords="916,80,1021,107"/>
+<area shape="rect" id="node21" href="$_i_plug_parameter_8h_source.html" title="IPlugParameter.h" alt="" coords="208,229,330,256"/>
+<area shape="rect" id="node8" href="$_i_plug_logger_8h.html" title="IPlug logging a.k.a tracing functionailty. " alt="" coords="624,229,726,256"/>
+<area shape="rect" id="node20" href="$_i_plug_midi_8h_source.html" title="IPlugMidi.h" alt="" coords="1047,229,1133,256"/>
+</map>

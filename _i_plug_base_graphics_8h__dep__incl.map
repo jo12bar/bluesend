@@ -1,0 +1,9 @@
+<map id="IPlugBaseGraphics.h" name="IPlugBaseGraphics.h">
+<area shape="rect" id="node2" href="$_i_plug_base__select_8h_source.html" title="IPlugBase_select.h" alt="" coords="133,80,267,107"/>
+<area shape="rect" id="node8" href="$_i_plug_base_graphics_8cpp_source.html" title="IPlugBaseGraphics.cpp" alt="" coords="291,80,449,107"/>
+<area shape="rect" id="node3" href="$_i_plug_presets_8cpp_source.html" title="IPlugPresets.cpp" alt="" coords="5,155,128,181"/>
+<area shape="rect" id="node4" href="$_i_plug_v_s_t2_8h.html" title="IPlugVST2.h" alt="" coords="152,155,248,181"/>
+<area shape="rect" id="node6" href="$_i_plug_v_s_t3_8h.html" title="VST3 base class for an IPlug plug&#45;in, inherits from IPlugBase or IPlugBaseGraphics. " alt="" coords="279,155,375,181"/>
+<area shape="rect" id="node5" href="$_i_plug_v_s_t2_8cpp_source.html" title="IPlugVST2.cpp" alt="" coords="141,229,251,256"/>
+<area shape="rect" id="node7" href="$_i_plug_v_s_t3_8cpp_source.html" title="IPlugVST3.cpp" alt="" coords="275,229,385,256"/>
+</map>

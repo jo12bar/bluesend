@@ -1,0 +1,12 @@
+<map id="IControl.h" name="IControl.h">
+<area shape="rect" id="node7" href="$_i_graphics_8h.html" title="The lowest level base class of an IGraphics context. " alt="" coords="943,80,1032,107"/>
+<area shape="rect" id="node28" href="$_i_plug_delegate_8h_source.html" title="IPlugDelegate.h" alt="" coords="1527,80,1641,107"/>
+<area shape="rect" id="node8" href="$_i_graphics_constants_8h_source.html" title="IGraphicsConstants.h" alt="" coords="224,229,372,256"/>
+<area shape="rect" id="node22" href="$_i_graphics_structs_8h_source.html" title="IGraphicsStructs.h" alt="" coords="729,155,859,181"/>
+<area shape="rect" id="node26" href="$_i_graphics_utilites_8h_source.html" title="IGraphicsUtilites.h" alt="" coords="923,155,1052,181"/>
+<area shape="rect" id="node27" href="$_i_popup_menu_8h.html" title="A class for setting the contents of a pop up menu. " alt="" coords="1095,379,1201,405"/>
+<area shape="rect" id="node9" href="$_i_plug_platform_8h.html" title="Include to get consistently named preprocessor macros for different platforms and logging functionali..." alt="" coords="505,304,616,331"/>
+<area shape="rect" id="node10" href="$_i_plug_logger_8h.html" title="IPlug logging a.k.a tracing functionailty. " alt="" coords="511,379,613,405"/>
+<area shape="rect" id="node18" href="$_i_plug_constants_8h.html" title="Constant definitions, Types, magic numbers. " alt="" coords="188,528,311,555"/>
+<area shape="rect" id="node19" href="$_i_plug_utilities_8h.html" title="Utility functions and macros. " alt="" coords="196,453,303,480"/>
+</map>

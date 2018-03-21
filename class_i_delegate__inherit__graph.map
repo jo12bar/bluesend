@@ -1,0 +1,6 @@
+<map id="IDelegate" name="IDelegate">
+<area shape="rect" id="node2" href="$class_i_plug_base_graphics.html" title="An IPlugBase class for an IPlug plug&#45;in that uses IGraphics for it&#39;s UI. " alt="" coords="90,80,224,107"/>
+<area shape="rect" id="node3" href="$class_i_plug_v_s_t2.html" title="VST2.4 API base class for an IPlug plug&#45;in, inherits from IPlugBase or IPlugBaseGraphics. " alt="" coords="5,155,91,181"/>
+<area shape="rect" id="node4" href="$class_i_plug_v_s_t3.html" title="VST3 base class for an IPlug plug&#45;in, inherits from IPlugBase or IPlugBaseGraphics. " alt="" coords="115,155,200,181"/>
+<area shape="rect" id="node5" href="$class_i_plug_w_a_m.html" title="Web Audio Module (WAM) API base class for an IPlug plug&#45;in, inherits from IPlugBase or IPlugBaseGraph..." alt="" coords="224,155,309,181"/>
+</map>

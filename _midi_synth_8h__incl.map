@@ -1,0 +1,7 @@
+<map id="MidiSynth.h" name="MidiSynth.h">
+<area shape="rect" id="node5" href="$_i_plug_constants_8h.html" title="Constant definitions, Types, magic numbers. " alt="" coords="805,379,928,405"/>
+<area shape="rect" id="node6" href="$_i_plug_midi_8h_source.html" title="IPlugMidi.h" alt="" coords="523,80,609,107"/>
+<area shape="rect" id="node9" href="$_i_plug_utilities_8h.html" title="Utility functions and macros. " alt="" coords="513,155,620,181"/>
+<area shape="rect" id="node16" href="$_i_plug_platform_8h.html" title="Include to get consistently named preprocessor macros for different platforms and logging functionali..." alt="" coords="236,229,347,256"/>
+<area shape="rect" id="node17" href="$_i_plug_logger_8h.html" title="IPlug logging a.k.a tracing functionailty. " alt="" coords="418,304,520,331"/>
+</map>
