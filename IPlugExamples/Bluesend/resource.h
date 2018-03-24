@@ -20,13 +20,13 @@
 #define PLUG_VER 0x00010000
 #define VST3_VER_STR "1.0.0"
 
-#define PLUG_COPYRIGHT  "Copyright 2017 Acme Inc"
+#define PLUG_COPYRIGHT  "Copyright 2018 Johann Barnard"
 
 // http://service.steinberg.de/databases/plugin.nsf/plugIn?openForm
 // 4 chars, single quotes. At least one capital letter
-#define PLUG_UNIQUE_ID 'Ipef'
+#define PLUG_UNIQUE_ID '4uzz'
 // make sure this is not the same as BUNDLE_MFR
-#define PLUG_MFR_ID 'Acme'
+#define PLUG_MFR_ID 'JMB_'
 
 // ProTools stuff
 
@@ -37,8 +37,8 @@
 #endif
 
 #define PLUG_MFR_PT "jo12bar\njo12bar\nAcme"
-#define PLUG_NAME_PT "Bluesend\nIPEF"
-#define PLUG_TYPE_PT "Effect"
+#define PLUG_NAME_PT "Bluesend\n4uzz"
+#define PLUG_TYPE_PT "None"
 #define PLUG_DOES_AUDIOSUITE 1
 
 /* PLUG_TYPE_PT can be "None", "EQ", "Dynamics", "PitchShift", "Reverb", "Delay", "Modulation", 
@@ -72,9 +72,9 @@ instrument determined by PLUG _IS _INST
 #endif
 
 // vst3 stuff
-#define MFR_URL "www.olilarkin.co.uk"
-#define MFR_EMAIL "spam@me.com"
-#define EFFECT_TYPE_VST3 "Fx"
+#define MFR_URL "https://www.github.com/jo12bar"
+#define MFR_EMAIL "johann.b@telus.net"
+#define EFFECT_TYPE_VST3 "Fx|Tools"
 
 /* "Fx|Analyzer"", "Fx|Delay", "Fx|Distortion", "Fx|Dynamics", "Fx|EQ", "Fx|Filter",
 "Fx", "Fx|Instrument", "Fx|InstrumentExternal", "Fx|Spatial", "Fx|Generator",
