@@ -18,6 +18,7 @@ struct IPlugInstanceInfo
 class IPlugVST3View;
 
 class IPlugVST3 : public IPlugBase
+                , public Steinberg::Vst::IUnitInfo
                 , public Steinberg::Vst::SingleComponentEffect
 {
 public:
@@ -113,6 +114,7 @@ public:
 
   OBJ_METHODS (IPlugVST3, SingleComponentEffect)
   DEFINE_INTERFACES
+  DEF_INTERFACE (IUnitInfo)
   END_DEFINE_INTERFACES (SingleComponentEffect)
   REFCOUNT_METHODS(SingleComponentEffect)
 
@@ -133,7 +135,8 @@ private:
   bool mSidechainActive;
 //  IMidiQueue mMidiOutputQueue;
   Steinberg::Vst::ProcessContext mProcessContext;
-  std::vector <IPlugVST3View*> viewsArray;
+  Steinberg::TArray <IPlugVST3View*> viewsArray;
+
   friend class IPlugVST3View;
 };
 
