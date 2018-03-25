@@ -1,4 +1,5 @@
 #include "Bluesend.h"
+#include "BluetoothDeviceSelectionMenu.h"
 #include "IPlug_include_in_plug_src.h"
 #include "IControl.h"
 #include "resource.h"
@@ -36,6 +37,9 @@ Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
   IBitmap knob = pGraphics->LoadIBitmap(KNOB_ID, KNOB_FN, kKnobFrames);
 
   pGraphics->AttachControl(new IKnobMultiControl(this, kGainX, kGainY, kGain, &knob));
+
+  // Attach the bluetooth device selector popup menu
+  pGraphics->AttachControl(new BluetoothDeviceSelectionMenu(this, IRECT(250, 150, 290, 190)));
 
   AttachGraphics(pGraphics);
 
