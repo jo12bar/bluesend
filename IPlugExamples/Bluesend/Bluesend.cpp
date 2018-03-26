@@ -8,35 +8,22 @@ const int kNumPrograms = 1;
 
 enum EParams
 {
-  kGain = 0,
   kNumParams
 };
 
 enum ELayout
 {
   kWidth = GUI_WIDTH,
-  kHeight = GUI_HEIGHT,
-
-  kGainX = 100,
-  kGainY = 100,
-  kKnobFrames = 60
+  kHeight = GUI_HEIGHT
 };
 
 Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
-  :	IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo), mGain(1.)
+  :	IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo)
 {
   TRACE;
 
-  //arguments are: name, defaultVal, minVal, maxVal, step, label
-  GetParam(kGain)->InitDouble("Gain", 50., 0., 100.0, 0.01, "%");
-  GetParam(kGain)->SetShape(2.);
-
   IGraphics* pGraphics = MakeGraphics(this, kWidth, kHeight);
   pGraphics->AttachPanelBackground(&COLOR_RED);
-
-  IBitmap knob = pGraphics->LoadIBitmap(KNOB_ID, KNOB_FN, kKnobFrames);
-
-  pGraphics->AttachControl(new IKnobMultiControl(this, kGainX, kGainY, kGain, &knob));
 
   // Attach the bluetooth device selector popup menu
   pGraphics->AttachControl(new BluetoothDeviceSelectionMenu(this, IRECT(250, 150, 290, 190)));
@@ -60,8 +47,9 @@ void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFr
 
   for (int s = 0; s < nFrames; ++s, ++in1, ++in2, ++out1, ++out2)
   {
-    *out1 = *in1 * mGain;
-    *out2 = *in2 * mGain;
+	// Just pass audio signals through.
+    *out1 = *in1;
+	*out2 = *in2;
   }
 }
 
@@ -77,10 +65,6 @@ void Bluesend::OnParamChange(int paramIdx)
 
   switch (paramIdx)
   {
-    case kGain:
-      mGain = GetParam(kGain)->Value() / 100.;
-      break;
-
     default:
       break;
   }
