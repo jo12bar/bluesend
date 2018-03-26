@@ -1,39 +1,18 @@
-# WDL / IPlug (Oli Larkin Edition)
+# Bluesend
 
-IPlug is a simple-to-use C++ framework for developing cross platform audio plugins and targeting multiple plugin APIs with the same code. Originally developed by Schwa/Cockos, IPlug has been enhanced by various contributors. IPlug depends on WDL, and that is why this project is called WDL-OL,  although most of the differences from Cockos' WDL are to do with IPlug.
-This version of IPlug targets VST2, VST3, AudioUnit RTAS and AAX (Native) APIs. It can also produce standalone Windows/macOS audio/midi apps. 
+A simple audio plugin to send raw audio data to any connected bluetooth device (i.e Raspberry Pi).
 
-**NOTE: This project is currently going through a massive re-factoring with some great new features coming. "IPlug2" will be released sometime in 2018. In the meantime I have updated this master branch which was very stale and was not compiling with current versions of Xcode and Visual Studio. There are probably a few things not working so well and out of date information, but I would much rather spend my time on IPlug2, which will provide options to maintain backwards compatibility as best as possible.** 
+Based on [WDL / IPlug (Oli Larkin Edition)][wdl-ol-github].
 
-**Much of this work is not exactly fun. If you appreciate having a completely free open source and easy-to-use C++ plug-in framework, free of commercial interest, please consider supporting my efforts financially via [my patreon](https://patreon.com/olilarkin) (even a token contribution of $1/month means a lot)**
+Part of my SD #22 District Project Scholarship submission.
 
-This version of WDL/IPlug shares the same license as the Cockos edition. Several of the added features are based on the work of other people. See individual source code files for any extra license information.
+## Links to SDKs (for future reference)
 
-Cockos WDL Page: http://www.cockos.com/wdl
+- [VST3 SDK version 3.9.5][vst3-sdk-3.9.5-download] (first link under "Available Steinberg SDKs")
+- [VST2 SDK][vst2-sdk-download] &mdash; Download the VST3 SDK. The zip file contains a VST2 SDK that has been tested to work. Use that.
+- [ASIO SDK][rtaudio-with-asio-sdk-download] &mdash; The RtAudio download contains a working ASIO SDK (for standalone builds on Windows). Use that.
 
-Discuss WDL on the WDL forum http://forum.cockos.com/forumdisplay.php?f=32
-
---------------------------------------------
-
-Cockos WDL License
-
-Copyright (C) 2005 and later Cockos Incorporated
-
-Portions copyright other contributors, see each source file for more information
-
-This software is provided 'as-is', without any express or implied warranty.  In no event will the authors be held liable for any damages arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
-
-1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
-1. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-1. This notice may not be removed or altered from any source distribution.
-
-WDL includes the following 3rd party libraries (which are all similarly licensed):
-
-* JNetLib http://www.nullsoft.com/free/jnetlib
-* LibPNG http://www.libpng.org/pub/png
-* GifLib http://sourceforge.net/projects/libungif
-* JPEGLib http://www.ijg.org
-* zlib http://www.zlib.net
-
+[wdl-ol-github]: https://github.com/olilarkin/wdl-ol
+[vst3-sdk-3.9.5-download]: https://web.archive.org/web/20160513043717/http://www.steinberg.net:80/en/company/developers.html
+[vst2-sdk-download]: http://www.steinberg.net/en/company/developers.html
+[rtaudio-with-asio-sdk-download]: https://www.music.mcgill.ca/~gary/rtaudio/
