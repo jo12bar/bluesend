@@ -1,10 +1,15 @@
 #include "BluetoothDeviceSelectionMenu.h"
+#include "IControl.h"
+#include "theming.h"
 
+static const int borderThickness = 1;
 
-
-BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect)
-	: IPanelControl(pPlug, pRect, &COLOR_BLUE)
-{}
+BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, const char* pLabel)
+	: IPanelControl(pPlug, pRect, &COLOR_BLACK)
+	, mPlug(pPlug)
+{
+	mLabel.Set(pLabel);
+}
 
 
 BluetoothDeviceSelectionMenu::~BluetoothDeviceSelectionMenu()
@@ -12,17 +17,22 @@ BluetoothDeviceSelectionMenu::~BluetoothDeviceSelectionMenu()
 
 bool BluetoothDeviceSelectionMenu::Draw(IGraphics * pGraphics)
 {
-	pGraphics->FillIRect(&COLOR_WHITE, &mRECT);
+	IRECT interiorRect = mRECT.GetPadded(-borderThickness);
 
-	// Compute points of the triangle to draw:
-	int ax = mRECT.R - 8;
-	int ay = mRECT.T + 4;
-	int bx = ax + 4;
-	int by = ay;
-	int cx = ax + 2;
-	int cy = ay + 2;
+	pGraphics->FillIRect(&COLOR_LIGHT_BLUE, &mRECT);
+	pGraphics->FillIRect(&COLOR_BLACK, &interiorRect);
 
-	pGraphics->FillTriangle(&COLOR_GRAY, ax, ay, bx, by, cx, cy, &mBlend);
+	IText labelProps(16, &LABEL_COLOR);
+	IRECT labelRect(
+		interiorRect.L,
+		interiorRect.MH() - (16 / 2),
+		interiorRect.R,
+		interiorRect.MH() + (16 / 2)
+	);
+	ITextControl* labelControl = new ITextControl(mPlug, labelRect, &labelProps, mLabel.Get());
+	// Prevent label from interfering with mouse clicks.
+	labelControl->SetTargetArea(IRECT());
+	pGraphics->AttachControl(labelControl);
 
 	return true;
 }

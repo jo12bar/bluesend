@@ -342,6 +342,7 @@ if exist "%programfiles(x86)%" (copy /y "$(TargetPath)" "$(VST3_64_PATH)\Bluesen
     <ClInclude Include="Bluesend.h" />
     <ClInclude Include="BluetoothDeviceSelectionMenu.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="theming.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\VST3_SDK\pluginterfaces\base\conststringtable.cpp" />

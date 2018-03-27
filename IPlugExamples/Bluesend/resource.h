@@ -59,14 +59,14 @@ instrument determined by PLUG _IS _INST
 // Define image resource IDs and paths here!
 //
 // Make sure to use unique IDs for each image resource, e.g:
-     #define KNOB_ID 101
+//     #define KNOB_ID 101
 //
 // And remeber to define the image resource location, e.g:
-     #define KNOB_FN "resources/img/knob.png"
+//     #define KNOB_FN "resources/img/knob.png"
 
 // GUI default dimensions
-#define GUI_WIDTH 300
-#define GUI_HEIGHT 300
+#define GUI_WIDTH 400
+#define GUI_HEIGHT 122
 
 // on MSVC, you must define SA_API in the resource editor preprocessor macros as well as the c++ ones
 #if defined(SA_API)
