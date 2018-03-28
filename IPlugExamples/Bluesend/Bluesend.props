@@ -28,7 +28,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ADDITIONAL_INCLUDES);..\..\WDL;..\..\WDL\lice;..\..\WDL\IPlug</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ADDITIONAL_INCLUDES);..\..\WDL;..\..\WDL\lice;..\..\WDL\IPlug;..\..\bluetooth-serial-port\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>IPlug.lib;lice.lib;%(AdditionalDependencies)</AdditionalDependencies>

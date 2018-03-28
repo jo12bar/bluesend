@@ -1,0 +1,3 @@
+[submodule "bluetooth-serial-port"]
+	path = bluetooth-serial-port
+	url = https://github.com/Agamnentzar/bluetooth-serial-port
