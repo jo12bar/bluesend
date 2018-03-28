@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BluetoothManager.h"
 #include "IControl.h"
 #include "wdlstring.h"
 
@@ -7,7 +8,7 @@ class BluetoothDeviceSelectionMenu :
 	public IPanelControl
 {
 public:
-	BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, const char* pLabel);
+	BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, BluetoothManager* pBlueManager, const char* pLabel);
 	~BluetoothDeviceSelectionMenu();
 
 	bool Draw(IGraphics* pGraphics);
@@ -19,5 +20,6 @@ public:
 private:
 	IPlugBase* mPlug;
 	WDL_String mLabel;
+	BluetoothManager* mBlueManager;
 };
 

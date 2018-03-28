@@ -146,7 +146,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>$(VST_DEFS);$(DEBUG_DEFS);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -239,6 +239,7 @@
     <ClInclude Include="..\..\WDL\IPlug\IPlugVST.h" />
     <ClInclude Include="Bluesend.h" />
     <ClInclude Include="BluetoothDeviceSelectionMenu.h" />
+    <ClInclude Include="BluetoothManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="theming.h" />
   </ItemGroup>
@@ -246,6 +247,7 @@
     <ClCompile Include="..\..\WDL\IPlug\IPlugVST.cpp" />
     <ClCompile Include="Bluesend.cpp" />
     <ClCompile Include="BluetoothDeviceSelectionMenu.cpp" />
+    <ClCompile Include="BluetoothManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Bluesend.rc" />

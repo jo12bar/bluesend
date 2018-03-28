@@ -152,7 +152,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>$(VST3_DEFS);$(DEBUG_DEFS);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(VST3_INCLUDES);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -341,6 +341,7 @@ if exist "%programfiles(x86)%" (copy /y "$(TargetPath)" "$(VST3_64_PATH)\Bluesen
     <ClInclude Include="..\..\WDL\IPlug\IPlugVST3.h" />
     <ClInclude Include="Bluesend.h" />
     <ClInclude Include="BluetoothDeviceSelectionMenu.h" />
+    <ClInclude Include="BluetoothManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="theming.h" />
   </ItemGroup>
@@ -362,6 +363,7 @@ if exist "%programfiles(x86)%" (copy /y "$(TargetPath)" "$(VST3_64_PATH)\Bluesen
     <ClCompile Include="..\..\WDL\IPlug\IPlugVST3.cpp" />
     <ClCompile Include="Bluesend.cpp" />
     <ClCompile Include="BluetoothDeviceSelectionMenu.cpp" />
+    <ClCompile Include="BluetoothManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Bluesend.rc" />

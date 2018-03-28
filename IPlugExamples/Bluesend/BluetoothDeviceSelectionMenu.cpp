@@ -1,12 +1,16 @@
+#include <iostream>
+#include <vector>
 #include "BluetoothDeviceSelectionMenu.h"
+#include "BluetoothManager.h"
 #include "IControl.h"
 #include "theming.h"
 
 static const int borderThickness = 1;
 
-BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, const char* pLabel)
+BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, BluetoothManager* pBlueManager, const char* pLabel)
 	: IPanelControl(pPlug, pRect, &COLOR_BLACK)
 	, mPlug(pPlug)
+	, mBlueManager(pBlueManager)
 {
 	mLabel.Set(pLabel);
 }
@@ -42,6 +46,12 @@ void BluetoothDeviceSelectionMenu::OnMouseDown(int x, int y, IMouseMod * pMod)
 	// If left mouse button clicked, display the popup menu.
 	if (pMod->L)
 	{
+		std::vector<device> devices = mBlueManager->Scan();
+		int i = 0;
+		for (const auto& d : devices)
+		{
+			std::cout << "Found device: " << d.name << " (" << d.address << ")" << std::endl;
+		}
 		doPopupMenu();
 	}
 

@@ -6,6 +6,7 @@
       <Filter>vst2</Filter>
     </ClCompile>
     <ClCompile Include="BluetoothDeviceSelectionMenu.cpp" />
+    <ClCompile Include="BluetoothManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bluesend.h" />
@@ -15,6 +16,7 @@
     </ClInclude>
     <ClInclude Include="BluetoothDeviceSelectionMenu.h" />
     <ClInclude Include="theming.h" />
+    <ClInclude Include="BluetoothManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Bluesend.rc" />

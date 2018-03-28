@@ -1,6 +1,7 @@
 #ifndef __BLUESEND__
 #define __BLUESEND__
 
+#include "BluetoothManager.h"
 #include "IPlug_include_in_plug_hdr.h"
 
 class Bluesend : public IPlug
@@ -17,7 +18,7 @@ public:
   void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
 private:
-  double mGain;
+  BluetoothManager* mBlueManager;
 };
 
 #endif

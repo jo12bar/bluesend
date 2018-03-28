@@ -48,6 +48,7 @@
     <ClCompile Include="..\..\VST3_SDK\pluginterfaces\base\coreiids.cpp">
       <Filter>vst3\VST3SDK\pluginterfaces\base</Filter>
     </ClCompile>
+    <ClCompile Include="BluetoothManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bluesend.h" />
@@ -195,6 +196,7 @@
       <Filter>vst3\VST3SDK\pluginterfaces\base</Filter>
     </ClInclude>
     <ClInclude Include="theming.h" />
+    <ClInclude Include="BluetoothManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vst3">

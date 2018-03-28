@@ -36,6 +36,8 @@ Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
 {
   TRACE;
 
+  mBlueManager = new BluetoothManager();
+
   IGraphics* pGraphics = MakeGraphics(this, kWidth, kHeight);
   pGraphics->AttachPanelBackground(&COLOR_BLACK);
 
@@ -52,6 +54,7 @@ Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
 		  kDeviceMenuX + kDeviceMenuWidth,
 		  kDeviceMenuY + kDeviceMenuHeight
 	  ),
+	  mBlueManager,
 	  "Connect to device"
   ));
   AttachGraphics(pGraphics);
