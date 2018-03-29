@@ -1,4 +1,4 @@
-#include <iostream>
+#include <sstream>
 #include <vector>
 #include "BluetoothDeviceSelectionMenu.h"
 #include "BluetoothManager.h"
@@ -46,13 +46,7 @@ void BluetoothDeviceSelectionMenu::OnMouseDown(int x, int y, IMouseMod * pMod)
 	// If left mouse button clicked, display the popup menu.
 	if (pMod->L)
 	{
-		std::vector<device> devices = mBlueManager->Scan();
-		int i = 0;
-		for (const auto& d : devices)
-		{
-			std::cout << "Found device: " << d.name << " (" << d.address << ")" << std::endl;
-		}
-		doPopupMenu();
+		doPopupMenu(mBlueManager->Scan());
 	}
 
 	// Seems to need the below - still need to figure out *why*.
@@ -60,19 +54,19 @@ void BluetoothDeviceSelectionMenu::OnMouseDown(int x, int y, IMouseMod * pMod)
 	SetDirty();
 }
 
-void BluetoothDeviceSelectionMenu::doPopupMenu()
+void BluetoothDeviceSelectionMenu::doPopupMenu(std::vector<device> devices)
 {
 	IPopupMenu menu;
 
 	IGraphics* gui = mPlug->GetGUI();
 
-	menu.AddItem("Foo");
-	menu.AddItem("Bar");
-	menu.AddItem("Baz");
-	menu.AddSeparator();
-	menu.AddItem("Spam");
-	menu.AddItem("Eggs");
-	menu.AddItem("Spam and eggs");
+	menu.AddItem(new IPopupMenuItem("Detected devices:", IPopupMenuItem::kTitle));
+
+	for (const auto& d : devices) {
+		std::stringstream buff;
+		buff << d.name << " (" << d.address << ")";
+		menu.AddItem(buff.str().c_str());
+	}
 
 	if (gui->CreateIPopupMenu(&menu, &mRECT))
 	{
