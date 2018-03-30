@@ -9,7 +9,6 @@ static const int borderThickness = 1;
 
 BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, BluetoothManager* pBlueManager, const char* pLabel)
 	: IPanelControl(pPlug, pRect, &COLOR_BLACK)
-	, mPlug(pPlug)
 	, mBlueManager(pBlueManager)
 {
 	mLabel.Set(pLabel);

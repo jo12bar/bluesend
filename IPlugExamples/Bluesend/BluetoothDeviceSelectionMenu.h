@@ -21,7 +21,6 @@ public:
 	void doPopupMenu(std::vector<device> devices);
 
 private:
-	IPlugBase* mPlug;
 	WDL_String mLabel;
 	BluetoothManager* mBlueManager;
 };
