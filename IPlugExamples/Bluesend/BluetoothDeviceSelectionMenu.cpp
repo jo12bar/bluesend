@@ -23,15 +23,24 @@ bool BluetoothDeviceSelectionMenu::Draw(IGraphics * pGraphics)
 {
 	IRECT interiorRect = mRECT.GetPadded(-borderThickness);
 
+	IColor colorButtonBg = COLOR_LIGHT_BLUE;
+	float darkenFactor = 0.15f;
+#pragma warning(push)
+#pragma warning(disable: 4244)
+	colorButtonBg.R *= darkenFactor;
+	colorButtonBg.G *= darkenFactor;
+	colorButtonBg.B *= darkenFactor;
+#pragma warning(pop)
+
 	pGraphics->FillIRect(&COLOR_LIGHT_BLUE, &mRECT);
-	pGraphics->FillIRect(&COLOR_BLACK, &interiorRect);
+	pGraphics->FillIRect(&colorButtonBg, &interiorRect);
 
 	IText labelProps(16, &LABEL_COLOR);
 	IRECT labelRect(
 		interiorRect.L,
-		interiorRect.MH() - (16 / 2),
+		(int)(interiorRect.MH()) - (16 / 2),
 		interiorRect.R,
-		interiorRect.MH() + (16 / 2)
+		(int)(interiorRect.MH()) + (16 / 2)
 	);
 	ITextControl* labelControl = new ITextControl(mPlug, labelRect, &labelProps, mLabel.Get());
 	// Prevent label from interfering with mouse clicks.
