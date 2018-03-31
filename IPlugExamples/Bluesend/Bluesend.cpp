@@ -23,12 +23,16 @@ enum ELayout
 	kTitleY = 10,
 	kTitleFontSize = 28,
 
-	kConnectedToX = kTitleX,
-	kConnectedToY = kTitleY + kTitleFontSize + 10,
+	kLabelX = kTitleX,
+	kLabelY = kTitleY + kTitleFontSize + 10,
 	kLabelFontSize = 16,
 
+	kConnectedDeviceX = kTitleX,
+	kConnectedDeviceY = kLabelY + kLabelFontSize + 10,
+	kConnectedDeviceFontSize = kLabelFontSize,
+
 	kDeviceMenuX = kTitleX,
-	kDeviceMenuY = kConnectedToY + kLabelFontSize + 10,
+	kDeviceMenuY = kConnectedDeviceY + kConnectedDeviceFontSize + 10,
 	kDeviceMenuWidth = kWidth - 20,
 	kDeviceMenuHeight = kLabelFontSize + 22
 };
@@ -80,15 +84,26 @@ void Bluesend::AttachTitleText(IGraphics* pGraphics, const char* text)
 
 void Bluesend::AttachConnectedToText(IGraphics* pGraphics, const char* label)
 {
-	IRECT rect(kConnectedToX, kConnectedToY, kWidth - 10, kHeight - 10);
-
 	// Label text
+	IRECT labelRect(kLabelX, kLabelY, kWidth - 10, kHeight - 10);
 	IText labelProps(kLabelFontSize, &LABEL_COLOR, 0, IText::kStyleItalic, IText::kAlignNear);
-	pGraphics->AttachControl(new ITextControl(this, rect, &labelProps, label));
+	pGraphics->AttachControl(new ITextControl(this, labelRect, &labelProps, label));
 
 	// Connected device text
-	IText connectedProps(kLabelFontSize, &ACCENT_TEXT_COLOR, 0, IText::kStyleNormal, IText::kAlignFar);
-	mConnectedDeviceText = new ITextControl(this, rect, &connectedProps, "(None. Connect below!)");
+	IRECT connectedDeviceRect(kConnectedDeviceX, kConnectedDeviceY, kWidth - 10, kHeight - 10);
+	IText connectedProps(
+			kConnectedDeviceFontSize,
+			&ACCENT_TEXT_COLOR,
+			0,
+			IText::kStyleNormal,
+			IText::kAlignNear
+	);
+	mConnectedDeviceText = new ITextControl(
+			this,
+			connectedDeviceRect,
+			&connectedProps,
+			"(None. Connect below!)"
+	);
 	pGraphics->AttachControl(mConnectedDeviceText);
 }
 
