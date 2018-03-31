@@ -7,8 +7,14 @@
 
 static const int borderThickness = 1;
 
-BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(IPlugBase *pPlug, IRECT pRect, BluetoothManager* pBlueManager, const char* pLabel)
-	: IPanelControl(pPlug, pRect, &COLOR_BLACK)
+BluetoothDeviceSelectionMenu::BluetoothDeviceSelectionMenu(
+	IPlugBase *pPlug,
+	int pParamIdx,
+	IRECT pRect,
+	BluetoothManager* pBlueManager,
+	const char* pLabel
+)
+	: IControl(pPlug, pRect, pParamIdx)
 	, mBlueManager(pBlueManager)
 {
 	mLabel.Set(pLabel);
@@ -59,6 +65,8 @@ void BluetoothDeviceSelectionMenu::OnMouseDown(int x, int y, IMouseMod * pMod)
 
 	// Seems to need the below - still need to figure out *why*.
 	Redraw();
+
+	// Trigger plug to recieve an updated param.
 	SetDirty();
 }
 
@@ -78,32 +86,14 @@ void BluetoothDeviceSelectionMenu::doPopupMenu(std::vector<device> devices)
 
 	if (gui->CreateIPopupMenu(&menu, &mRECT))
 	{
-		int itemChosen = menu.GetChosenItemIdx();
-
-		printf("Chose menu item with index %i\n", itemChosen);
-
-		switch (itemChosen)
-		{
-		case 0:
-			printf("Foo\n");
-			break;
-		case 1:
-			printf("Bar\n");
-			break;
-		case 2:
-			printf("Baz\n");
-			break;
-		case 3:
-			printf("Spam\n");
-			break;
-		case 4:
-			printf("Eggs\n");
-			break;
-		case 5:
-			printf("Spam and eggs\n");
-			break;
-		default:
-			break;
-		}
+		// Subtract one to account for the menu's title.
+		int itemChosen = menu.GetChosenItemIdx() - 1;
+		mValue = ScaleChosenDeviceIndex(itemChosen);
+		mPlug->SetParameterFromGUI(mParamIdx, mValue);
 	}
+}
+
+double BluetoothDeviceSelectionMenu::ScaleChosenDeviceIndex(int i)
+{
+	return (double)(i) / (double)(MAX_AMOUNT_DEVICES);
 }

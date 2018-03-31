@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Bluesend.h"
 #include "BluetoothDeviceSelectionMenu.h"
 #include "IPlug_include_in_plug_src.h"
@@ -9,6 +10,7 @@ const int kNumPrograms = 1;
 
 enum EParams
 {
+  kDevicesArrayIndex,
   kNumParams
 };
 
@@ -32,9 +34,12 @@ enum ELayout
 };
 
 Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
-  :	IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo)
+  : IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo)
+  , mInitialScanDone(false)
 {
   TRACE;
+
+  GetParam(kDevicesArrayIndex)->InitInt("Devices Array Index", 0, 0, MAX_AMOUNT_DEVICES);
 
   mBlueManager = new BluetoothManager();
 
@@ -48,6 +53,7 @@ Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
   // Bluetooth device selector popup menu
   pGraphics->AttachControl(new BluetoothDeviceSelectionMenu(
 	  this,
+	  kDevicesArrayIndex,
 	  IRECT(
 		  kDeviceMenuX,
 		  kDeviceMenuY,
@@ -81,9 +87,9 @@ void Bluesend::AttachConnectedToText(IGraphics* pGraphics, const char* label)
 	pGraphics->AttachControl(new ITextControl(this, rect, &labelProps, label));
 
 	// Connected device text
-	// TODO: Make this dynamic!
 	IText connectedProps(kLabelFontSize, &ACCENT_TEXT_COLOR, 0, IText::kStyleNormal, IText::kAlignFar);
-	pGraphics->AttachControl(new ITextControl(this, rect, &connectedProps, "Placeholder McDeviceface"));
+	mConnectedDeviceText = new ITextControl(this, rect, &connectedProps, "(None. Connect below!)");
+	pGraphics->AttachControl(mConnectedDeviceText);
 }
 
 void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
@@ -115,6 +121,23 @@ void Bluesend::OnParamChange(int paramIdx)
 
   switch (paramIdx)
   {
+    case kDevicesArrayIndex:
+	{
+	  const std::vector<device> devices = mBlueManager->GetDevices();
+
+	  if (devices.size() > 0)
+	  {
+		mInitialScanDone = true;
+
+		int i = GetParam(kDevicesArrayIndex)->Int();
+
+		std::stringstream buff;
+		buff << devices[i].name << " (" << devices[i].address << ")";
+
+		mConnectedDeviceText->SetTextFromPlug((char*)(buff.str().c_str()));
+	  }
+	  break;
+	}
     default:
       break;
   }

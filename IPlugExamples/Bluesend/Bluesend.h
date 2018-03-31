@@ -18,6 +18,8 @@ public:
   void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
 private:
+  bool mInitialScanDone;
+  ITextControl* mConnectedDeviceText;
   BluetoothManager* mBlueManager;
 };
 
