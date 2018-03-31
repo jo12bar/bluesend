@@ -7,20 +7,20 @@
 class Bluesend : public IPlug
 {
 public:
-  Bluesend(IPlugInstanceInfo instanceInfo);
-  ~Bluesend();
+	Bluesend(IPlugInstanceInfo instanceInfo);
+	~Bluesend();
 
-  void AttachTitleText(IGraphics* pGraphics, const char* text);
-  void AttachConnectedToText(IGraphics* pGraphics, const char* label);
+	void AttachTitleText(IGraphics* pGraphics, const char* text);
+	void AttachConnectedToText(IGraphics* pGraphics, const char* label);
 
-  void Reset();
-  void OnParamChange(int paramIdx);
-  void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
+	void Reset();
+	void OnParamChange(int paramIdx);
+	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
 private:
-  bool mInitialScanDone;
-  ITextControl* mConnectedDeviceText;
-  BluetoothManager* mBlueManager;
+	bool mInitialScanDone;
+	ITextControl* mConnectedDeviceText;
+	BluetoothManager* mBlueManager;
 };
 
 #endif

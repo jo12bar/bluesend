@@ -31,9 +31,9 @@
 // ProTools stuff
 
 #if (defined(AAX_API) || defined(RTAS_API)) && !defined(_PIDS_)
-  #define _PIDS_
-  const int PLUG_TYPE_IDS[2] = {'EFN1', 'EFN2'};
-  const int PLUG_TYPE_IDS_AS[2] = {'EFA1', 'EFA2'}; // AudioSuite
+#define _PIDS_
+const int PLUG_TYPE_IDS[2] = { 'EFN1', 'EFN2' };
+const int PLUG_TYPE_IDS_AS[2] = { 'EFA1', 'EFA2' }; // AudioSuite
 #endif
 
 #define PLUG_MFR_PT "jo12bar\njo12bar\nAcme"
@@ -41,8 +41,8 @@
 #define PLUG_TYPE_PT "None"
 #define PLUG_DOES_AUDIOSUITE 1
 
-/* PLUG_TYPE_PT can be "None", "EQ", "Dynamics", "PitchShift", "Reverb", "Delay", "Modulation", 
-"Harmonic" "NoiseReduction" "Dither" "SoundField" "Effect" 
+/* PLUG_TYPE_PT can be "None", "EQ", "Dynamics", "PitchShift", "Reverb", "Delay", "Modulation",
+"Harmonic" "NoiseReduction" "Dither" "SoundField" "Effect"
 instrument determined by PLUG _IS _INST
 */
 
