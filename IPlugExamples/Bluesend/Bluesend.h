@@ -17,8 +17,9 @@ public:
 	void OnParamChange(int paramIdx);
 	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
+	void ConnectToDevice();
+
 private:
-	bool mInitialScanDone;
 	ITextControl* mConnectedDeviceText;
 	BluetoothManager* mBlueManager;
 };

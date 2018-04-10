@@ -6,6 +6,8 @@
 
 BluetoothManager::BluetoothManager()
 	: mInq(DeviceINQ::Create())
+	, mInitScanDone(false)
+	, mConnectedToDevice(false)
 {
 }
 
@@ -27,7 +29,8 @@ void BluetoothManager::ConnectDevice(int deviceArrayIdx)
 	if (!mInitScanDone || mConnectedToDevice) return;
 
 	mConnectedDevice = mDevices[deviceArrayIdx];
-	int channelID = mInq->SdpSearch(mConnectedDevice.address);
+	// int channelID = mInq->SdpSearch(mConnectedDevice.address);
+	int channelID = 1;
 	mSerialPort = std::unique_ptr<BTSerialPortBinding>(BTSerialPortBinding::Create(mConnectedDevice.address, channelID));
 	mSerialPort->Connect();
 	mConnectedToDevice = true;

@@ -1,6 +1,7 @@
 #include <sstream>
 #include "Bluesend.h"
 #include "BluetoothDeviceSelectionMenu.h"
+#include "BluetoothException.h"
 #include "IPlug_include_in_plug_src.h"
 #include "IControl.h"
 #include "resource.h"
@@ -39,11 +40,10 @@ enum ELayout
 
 Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
 	: IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo)
-	, mInitialScanDone(false)
 {
 	TRACE;
 
-	GetParam(kDevicesArrayIndex)->InitInt("Devices Array Index", 0, 0, MAX_AMOUNT_DEVICES);
+	GetParam(kDevicesArrayIndex)->InitInt("Devices Array Index", -1, 0, MAX_AMOUNT_DEVICES);
 
 	mBlueManager = new BluetoothManager();
 
@@ -124,6 +124,32 @@ void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFr
 	}
 }
 
+void Bluesend::ConnectToDevice()
+{
+	const std::vector<device> devices = mBlueManager->GetDevices();
+
+	int i = GetParam(kDevicesArrayIndex)->Int();
+
+	if (devices.size() > 0)
+	{
+		// Update connected device text
+		std::stringstream buff;
+		buff << devices[i].name << " (" << devices[i].address << ")";
+		mConnectedDeviceText->SetTextFromPlug((char*)(buff.str().c_str()));
+
+		// Connect to device with BluetoothManager
+		try
+		{
+			if (mBlueManager->IsConnectedToDevice()) mBlueManager->DisconnectDevice();
+			mBlueManager->ConnectDevice(i);
+		}
+		catch (const BluetoothException& e)
+		{
+			DBGMSG(e.what());
+		}
+	}
+}
+
 void Bluesend::Reset()
 {
 	TRACE;
@@ -137,22 +163,8 @@ void Bluesend::OnParamChange(int paramIdx)
 	switch (paramIdx)
 	{
 	case kDevicesArrayIndex:
-	{
-		const std::vector<device> devices = mBlueManager->GetDevices();
-
-		if (devices.size() > 0)
-		{
-			mInitialScanDone = true;
-
-			int i = GetParam(kDevicesArrayIndex)->Int();
-
-			std::stringstream buff;
-			buff << devices[i].name << " (" << devices[i].address << ")";
-
-			mConnectedDeviceText->SetTextFromPlug((char*)(buff.str().c_str()));
-		}
+		ConnectToDevice();
 		break;
-	}
 	default:
 		break;
 	}
