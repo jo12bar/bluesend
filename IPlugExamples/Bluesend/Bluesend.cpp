@@ -1,4 +1,5 @@
 #include <sstream>
+#include <vector>
 #include "Bluesend.h"
 #include "BluetoothDeviceSelectionMenu.h"
 #include "BluetoothException.h"
@@ -115,12 +116,37 @@ void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFr
 	double* in2 = inputs[1];
 	double* out1 = outputs[0];
 	double* out2 = outputs[1];
+	std::vector<double> btOutput;
+	bool connected = mBlueManager->IsConnectedToDevice();
 
 	for (int s = 0; s < nFrames; ++s, ++in1, ++in2, ++out1, ++out2)
 	{
 		// Just pass audio signals through.
 		*out1 = *in1;
 		*out2 = *in2;
+
+		if (connected) btOutput.push_back(*in1);
+	}
+
+	if (connected)
+	{
+		try
+		{
+			std::vector<char> buff;
+
+			// Transform double vector into char vector for sending.
+			for (double datum : btOutput) {
+				char arr[sizeof(datum)];
+				memcpy(arr, &datum, sizeof(datum));
+				buff.insert(buff.end(), arr, arr + sizeof(datum));
+			}
+
+			mBlueManager->Write(buff.data(), buff.size());
+		}
+		catch (const BluetoothException& e)
+		{
+			DBGMSG(e.what());
+		}
 	}
 }
 
