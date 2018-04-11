@@ -41,6 +41,7 @@ enum ELayout
 
 Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
 	: IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo)
+	, mDataThrottleCounter(0)
 {
 	TRACE;
 
@@ -72,6 +73,8 @@ Bluesend::Bluesend(IPlugInstanceInfo instanceInfo)
 
 	//MakePreset("preset 1", ... );
 	MakeDefaultPreset((char *) "-", kNumPrograms);
+
+	mDataThrottleCounterMax = (int)(GetSampleRate() / DATA_THROTTLE_FACTOR);
 }
 
 Bluesend::~Bluesend() {}
@@ -111,13 +114,13 @@ void Bluesend::AttachConnectedToText(IGraphics* pGraphics, const char* label)
 void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
 {
 	// Mutex is already locked for us.
-
 	double* in1 = inputs[0];
 	double* in2 = inputs[1];
 	double* out1 = outputs[0];
 	double* out2 = outputs[1];
 	std::vector<double> btOutput;
 	bool connected = mBlueManager->IsConnectedToDevice();
+	bool ready = mDataThrottleCounter == mDataThrottleCounterMax - 1;
 
 	for (int s = 0; s < nFrames; ++s, ++in1, ++in2, ++out1, ++out2)
 	{
@@ -125,10 +128,10 @@ void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFr
 		*out1 = *in1;
 		*out2 = *in2;
 
-		if (connected) btOutput.push_back(*in1);
+		if (connected && ready) btOutput.push_back(*in1);
 	}
 
-	if (connected)
+	if (connected && ready)
 	{
 		try
 		{
@@ -147,6 +150,15 @@ void Bluesend::ProcessDoubleReplacing(double** inputs, double** outputs, int nFr
 		{
 			DBGMSG(e.what());
 		}
+	}
+
+	if (ready)
+	{
+		mDataThrottleCounter = 0;
+	}
+	else
+	{
+		mDataThrottleCounter++;
 	}
 }
 
