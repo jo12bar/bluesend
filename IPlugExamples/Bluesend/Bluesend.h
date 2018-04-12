@@ -7,7 +7,7 @@
 // The factor to throttle the sending of data by, as a fraction of the sampling rate.
 // E.g: Setting this to `60.` will cause data to only be sent at 1/60th the sample rate.
 // So, if the sample rate was 44100, then the data would only be sent every 735 frames.
-#define DATA_THROTTLE_FACTOR 120.
+#define DATA_THROTTLE_FACTOR 240.
 
 class Bluesend : public IPlug
 {
