@@ -180,6 +180,12 @@ void Bluesend::ConnectToDevice()
 		{
 			if (mBlueManager->IsConnectedToDevice()) mBlueManager->DisconnectDevice();
 			mBlueManager->ConnectDevice(i);
+
+			// Send the sample rate (double has to be converted to char array).
+			double sampleRate = GetSampleRate();
+			char arr[sizeof(sampleRate)];
+			memcpy(arr, &sampleRate, sizeof(sampleRate));
+			mBlueManager->Write(arr, sizeof(sampleRate));
 		}
 		catch (const BluetoothException& e)
 		{
